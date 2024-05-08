@@ -2,81 +2,62 @@
   Director #<%= @the_director.id %> details
 </h1>
 
-<a href="/directors">
-  Go back
-</a>
+<a href="/directors">Go back</a>
 
 <hr>
 
-<hr>
-<form action="/insert_director" method="post">
+<!-- Update Form -->
+<form action="/modify_director_record/<%= @the_director.id %>" method="post">
+  <input type="hidden" name="_method" value="patch"> <!-- For simulating PATCH request -->
+
   <div>
     <label for="name_box">Name</label>
-    <input type="text" id="name_box" name="query_name">
+    <input type="text" id="name_box" name="query_name" value="<%= @the_director.name %>">
   </div>
 
   <div>
     <label for="dob_box">Dob</label>
-    <input type="date" id="dob_box" name="query_dob">
+    <input type="date" id="dob_box" name="query_dob" value="<%= @the_director.dob.strftime('%Y-%m-%d') %>">
   </div>
 
   <div>
     <label for="bio_box">Bio</label>
-    <textarea id="bio_box" name="query_bio" rows="3"></textarea>
+    <textarea id="bio_box" name="query_bio" rows="3"><%= @the_director.bio %></textarea>
   </div>
 
   <div>
     <label for="image_box">Image</label>
-    <input type="text" id="image_box" name="query_image">
+    <input type="text" id="image_box" name="query_image" value="<%= @the_director.image %>">
   </div>
 
-  <button>Create director</button>
+  <button type="submit">Update director</button>
 </form>
+
+<!-- Delete Link -->
+<div>
+  <a href="/delete_director/<%= @the_director.id %>" data-confirm="Are you sure you want to delete this director?">Delete director</a>
+</div>
+
 <hr>
 
-
 <dl>
-  <dt>
-    Name
-  </dt>
-  <dd>
-    <%= @the_director.name %>
-  </dd>
+  <dt>Name</dt>
+  <dd><%= @the_director.name %></dd>
 
-  <dt>
-    Dob
-  </dt>
-  <dd>
-    <%= @the_director.dob %>
-  </dd>
+  <dt>Dob</dt>
+  <dd><%= @the_director.dob %></dd>
 
-  <dt>
-    Bio
-  </dt>
-  <dd>
-    <%= @the_director.bio %>
-  </dd>
+  <dt>Bio</dt>
+  <dd><%= @the_director.bio %></dd>
 
-  <dt>
-    Image
-  </dt>
-  <dd>
-    <img src="<%= @the_director.image %>" style="width:250px;">
-  </dd>
+  <dt>Image</dt>
+  <dd><img src="<%= @the_director.image %>" style="width:250px;"></dd>
 
-  <dt>
-    Created at
-  </dt>
-  <dd>
-    <%= @the_director.created_at %>
-  </dd>
+  <dt>Created at</dt>
+  <dd><%= @the_director.created_at %></dd>
 
-  <dt>
-    Updated at
-  </dt>
-  <dd>
-    <%= @the_director.updated_at %>
-  </dd>
+  <dt>Updated at</dt>
+  <dd><%= @the_director.updated_at %></dd>
 </dl>
 
 <hr>
@@ -85,63 +66,22 @@
 
 <table border="1">
   <tr>
-    <th>
-      ID
-    </th>
-
-    <th>
-      Image
-    </th>
-
-    <th>
-      Title
-    </th>
-
-    <th>
-      Year
-    </th>
-
-    <th>
-      Director
-    </th>
-
-    <th>
-    </th>
+    <th>ID</th>
+    <th>Image</th>
+    <th>Title</th>
+    <th>Year</th>
+    <th>Director</th>
+    <th></th>
   </tr>
 
-  <% the_id = @the_director.id %>
-
-  <% matching_movies = Movie.where({ :director_id => the_id }) %>
-  
-  <% films = matching_movies.order({ :year => :asc }) %>
-
-  <% films.each do |a_movie| %>
+  <% @the_director.movies.each do |movie| %>
   <tr>
-    <td>
-      <%= a_movie.id %>
-    </td>
-
-    <td>
-      <img src="<%= a_movie.image %>" style="width:250px;">
-    </td>
-
-    <td>
-      <%= a_movie.title %>
-    </td>
-
-    <td>
-      <%= a_movie.year %>
-    </td>
-
-    <td>
-      <%= @the_director.name %>
-    </td>
-
-    <td>
-      <a href="/movies/<%= a_movie.id %>">
-        Show details
-      </a>
-    </td>
+    <td><%= movie.id %></td>
+    <td><img src="<%= movie.image %>" style="width:250px;"></td>
+    <td><%= movie.title %></td>
+    <td><%= movie.year %></td>
+    <td><%= @the_director.name %></td>
+    <td><a href="/movies/<%= movie.id %>">Show details</a></td>
   </tr>
   <% end %>
 </table>

@@ -53,27 +53,20 @@ class DirectorsController < ApplicationController
   end
 
   def update
-    the_id = params.fetch("path_id")
-    director = Director.where({ :id => the_id }).first
-  
-    director.name = params.fetch("query_name", director.name)
-    director.dob = params.fetch("query_dob", director.dob)
-    director.bio = params.fetch("query_bio", director.bio)
-    director.image = params.fetch("query_image", director.image)
-  
-    if director.save
-      redirect_to("/directors/#{the_id}")
-    else
-      redirect_to("/directors/#{the_id}/edit", { :alert => "Error updating director." })
-    end
+    director = Director.find(params[:id])
+    director.update({
+      name: params[:query_name],
+      dob: params[:query_dob],
+      bio: params[:query_bio],
+      image: params[:query_image]
+    })
+    redirect_to("/directors/#{director.id}")
   end
-
+  
   def destroy
-    the_id = params.fetch("path_id")
-    director = Director.where({ :id => the_id }).first
-  
+    director = Director.find(params[:id])
     director.destroy
-  
     redirect_to("/directors")
   end
+  
 end
