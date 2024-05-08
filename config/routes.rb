@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get("/directors/eldest", { :controller => "directors", :action => "min_dob" })
 
   get("/directors", { :controller => "directors", :action => "index" })
+  post("/insert_director", { :controller => "directors", :action => "create" })
   get("/directors/:path_id", { :controller => "directors", :action => "show" })
+  post("/modify_director_record/:the_id", { :controller => "directors", :action => "update" })
+  get("/delete_director/:an_id", { :controller => "directors", :action => "destroy" })
 
   get("/movies", { :controller => "movies", :action => "index" })
   get("/movies/:path_id", { :controller => "movies", :action => "show" })
@@ -14,5 +17,8 @@ Rails.application.routes.draw do
   post("/modify_movie_record/:the_id", { :controller => "movies", :action => "update" })
   
   get("/actors", { :controller => "actors", :action => "index" })
+  post("/insert_actor", { :controller => "actors", :action => "create" })
   get("/actors/:path_id", { :controller => "actors", :action => "show" })
+  post("/modify_actor_record/:the_id", { :controller => "actors", :action => "update" })
+  get("/delete_actor/:an_id", { :controller => "actors", :action => "destroy" })
 end
