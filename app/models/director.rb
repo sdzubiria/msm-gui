@@ -11,4 +11,5 @@
 #  updated_at :datetime         not null
 #
 class Director < ApplicationRecord
+  has_many :movies  # This line establishes the association
 end

@@ -2,13 +2,21 @@
   Director #<%= @the_director.id %> details
 </h1>
 
-<a href="/directors">Go back</a>
+<div>
+  <a href="/directors">
+    Go back
+  </a>
+
+</div>
+
+<div>
+  <a href="/delete_director/<%= @the_director.id %>">Delete director</a>
+</div>
 
 <hr>
 
-<!-- Update Form -->
 <form action="/modify_director_record/<%= @the_director.id %>" method="post">
-  <input type="hidden" name="_method" value="patch"> <!-- For simulating PATCH request -->
+  <input type="hidden" name="_method" value="patch">
 
   <div>
     <label for="name_box">Name</label>

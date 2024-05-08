@@ -1,16 +1,35 @@
-<h1>List of all actors</h1>
+<h1>
+  List of all actors
+</h1>
 
 <hr>
 
 <form action="/insert_actor" method="post">
-  <input type="text" name="query_name" placeholder="Name" required>
-  <input type="date" name="query_dob" placeholder="Date of Birth" required>
-  <textarea name="query_bio" placeholder="Biography" rows="3"></textarea>
-  <input type="text" name="query_image" placeholder="Image URL" required>
-  <button type="submit">Create Actor</button>
+  <div>
+    <label for="name_field">Name</label>
+    <input id="name_field" type="text" name="query_name" placeholder="Name" required>
+  </div>
+
+  <div>
+    <label for="dob_field">Dob</label>
+    <input id="dob_field" type="date" name="query_dob" placeholder="Date of Birth" required>
+  </div>
+
+  <div>
+    <label for="bio_field">Bio</label>
+    <textarea id="bio_field" name="query_bio" placeholder="Biography" rows="3"></textarea>
+  </div>
+
+  <div>
+    <label for="image_field">Image</label>
+    <input id="image_field" type="text" name="query_image" placeholder="Image URL" required>
+  </div>
+
+  <button type="submit">Create actor</button>
 </form>
 
 <hr>
+
 
 <table border="1">
   <tr>
@@ -27,9 +46,8 @@
     <td><%= actor.name %></td>
     <td><%= actor.dob %></td>
     <td>
-      <a href="/actors/<%= actor.id %>">Show</a> |
-      <a href="/delete_actor/<%= actor.id %>" data-confirm="Are you sure?">Delete</a>
-    </td>
+      <a href="/actors/<%= actor.id %>">Show details</a> |
+      </td>
   </tr>
   <% end %>
 </table>
